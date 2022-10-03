@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientdeploy
+  namespace: client
+  labels:
+    app: client
+  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: client
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxunavailable: 25% 
+  template:
+    metadata:
+      name: clientside
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: cleintside
+        images: basant827009/react-server:latest 
+        ports:
+        - continerPort: 3000
+
+
+
+
+
+
+      
+    

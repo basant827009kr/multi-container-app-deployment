@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app: server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: server
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: serverpod
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: contaienrs
+        image: basant827009/express-server:latest 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          value: redis
+        - name: REDIS_PORT
+          value: 6379
+        - name: PGUSER
+          value: postgres
+        - name: PGHOST
+          value: postgress
+        - name: PGDATABASE
+          value: postgres
+        - name: PGPORT
+          value: 5432
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: #key name
+              name: # name of secret
+
+
+
+
+  
